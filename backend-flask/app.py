@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import google.generativeai as genai
 import os
-from dotenv import load_dotenv # Untuk memuat variabel lingkungan dari .env
+from dotenv import load_dotenv
 
 # Muat variabel lingkungan dari file .env
 load_dotenv()
@@ -10,9 +10,6 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-# --- KONFIGURASI GEMINI ---
-# Pastikan GEMINI_API_KEY sudah diatur di file .env di folder backend Anda.
-# Contoh isi file .env: GEMINI_API_KEY=YOUR_API_KEY_ANDA_DI_SINI
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 if not GEMINI_API_KEY:
@@ -20,8 +17,6 @@ if not GEMINI_API_KEY:
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-# Model Gemini yang digunakan
-# PENTING: Jika 'gemini-2.0-flash' masih error 404, coba ganti ke "gemini-1.0-pro"
 GEMINI_MODEL = "gemini-2.0-flash" 
 
 @app.route('/generate-test', methods=['POST'])
@@ -36,8 +31,6 @@ def generate_test():
             error_message = "Tidak ada kode yang diberikan."
         return jsonify({"error": error_message}), 400
 
-    # --- LOGIKA PROMPT UNTUK GEMINI ---
-    # Instruksi tegas untuk Gemini agar HANYA mengeluarkan kode Python.
     if selected_language == 'id':
         prompt = f"""Hasilkan unit test Python pytest yang ringkas untuk fungsi berikut.
 Sertakan setidaknya satu kasus test positif dan satu kasus test batas jika berlaku.
@@ -48,7 +41,7 @@ Pastikan kode yang dihasilkan dapat langsung dijalankan dan tidak terpotong.
 ```python
 {code_input}
 ```"""
-    else: # Default ke bahasa Inggris
+    else:
         prompt = f"""Generate a concise Python pytest unit test for the following function.
 Include at least one positive test case and one edge case if applicable.
 Provide ONLY the test code within a Python code block (starting with ```python and ending with ```),
@@ -60,7 +53,7 @@ Ensure the generated code is directly executable and not truncated.
 ```"""
 
     try:
-        # --- PANGGILAN KE GEMINI API ---
+    
         model = genai.GenerativeModel(GEMINI_MODEL)
         response = model.generate_content(prompt)
 
@@ -69,8 +62,6 @@ Ensure the generated code is directly executable and not truncated.
         
         gemini_output_text = response.text
 
-        # --- PEMBESIHAN RESPON AI ---
-        # Mencari dan mengekstrak blok kode Python dari respons Gemini.
         cleaned_code = ""
         code_block_start_marker = "```python"
         code_block_end_marker = "```"
@@ -111,6 +102,4 @@ Ensure the generated code is directly executable and not truncated.
         return jsonify({"error": error_message}), 500
 
 if __name__ == '__main__':
-    # Pastikan Anda punya Flask dan google-generativeai terinstal:
-    # pip install Flask requests flask-cors google-generativeai python-dotenv
     app.run(debug=True, port=5000)

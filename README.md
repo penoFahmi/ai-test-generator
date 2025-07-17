@@ -1,100 +1,105 @@
 # AI-Driven Test Case Generator
 
-Sebuah aplikasi web yang membantu pengembang secara otomatis membuat unit test Python menggunakan kecerdasan buatan lokal (Ollama). Proyek ini dibuat sebagai bagian dari tugas akhir mata kuliah (UAS).
+This web application helps developers automatically create **Python unit tests** using the power of **Artificial Intelligence (Google Gemini)**. This project was developed as part of a final academic assignment (UAS).
 
 ---
 
-## Fitur Utama
+## Key Features
 
-* **Generasi Unit Test Otomatis:** Memasukkan fungsi Python dan menghasilkan kode unit test Pytest yang relevan.
-* **Dukungan Multi-Bahasa:** Memilih antara prompt berbahasa Inggris atau Indonesia untuk AI.
-* **Antarmuka Pengguna Intuitif:** UI modern dan responsif yang dibangun dengan Next.js dan Shadcn UI.
-* **Integrasi Ollama:** Memanfaatkan model AI lokal `deepseek-coder` (atau model sejenis) untuk proses generasi test.
-
----
-
-## Tampilan Aplikasi
-
-![Screenshot Aplikasi AI Test Generator](link_gambar_screenshot_anda.png)
-*(Ganti `link_gambar_screenshot_anda.png` dengan URL gambar screenshot aplikasi Anda. Anda bisa mengunggahnya ke GitHub atau layanan lain.)*
+* **Automated Unit Test Generation:** Input your Python functions, and the application will generate relevant **pytest** code.
+* **Multi-Language Support:** Choose between English or Indonesian prompts for the AI, which also reflects in the application's interface.
+* **Intuitive User Interface:** A modern and responsive UI, built with Next.js and Shadcn UI.
+* **Google Gemini Integration:** Leverages Google's advanced AI models for fast and accurate test generation.
+* **"Copy Test Code" Feature:** Easily copy the generated test code to your clipboard with a single click.
 
 ---
 
-## Persyaratan Sistem
+## Application View
 
-Pastikan sistem Anda memenuhi persyaratan berikut sebelum menjalankan aplikasi:
+![Screenshot of the AI Test Generator Application](link_gambar_screenshot_anda.png)
+*(Replace `link_gambar_screenshot_anda.png` with the URL of your application's screenshot. You can upload it to GitHub or another online service.)*
 
-* **Python 3.x:** Untuk menjalankan backend Flask.
-* **Node.js & npm/yarn:** Untuk menjalankan frontend Next.js.
-* **Ollama:** Server Ollama harus terinstal dan berjalan.
-    * Pastikan Anda telah mengunduh dan menjalankan model AI yang kompatibel, misalnya:
-        ```bash
-        ollama run deepseek-coder # atau model lain yang Anda gunakan
+---
+
+## System Requirements
+
+Make sure your system meets the following requirements before running the application:
+
+* **Python 3.x:** To run the Flask backend.
+* **Node.js & npm/yarn:** To run the Next.js frontend.
+* **Google Gemini API Key:** Obtain your API key from [Google AI Studio](https://aistudio.google.com/app/apikey). This is **essential** for the application to function.
+
+---
+
+## How to Run the Project
+
+Follow these steps to set up and run the application locally.
+
+### 1. Backend Setup (Flask)
+
+1.  **Navigate to the Backend Directory:**
+    ```bash
+    cd your_project_folder/backend # Replace with the actual path to your backend folder
+    ```
+2.  **Install Python Dependencies:**
+    ```bash
+    pip install Flask requests flask-cors google-generativeai python-dotenv
+    ```
+3.  **Configure Gemini API Key (`.env`):**
+    * In your `backend/` folder, create a new file named **`.env`**.
+    * Add the following line to it, replacing `YOUR_API_KEY_HERE` with your actual Google Gemini API key:
         ```
-    * Server Ollama secara default berjalan di `http://localhost:11434`.
+        GEMINI_API_KEY=YOUR_API_KEY_HERE
+        ```
+    * **Important:** Do not include quotes around your API key. Ensure the `.env` file is in the same `backend/` folder as `app.py`.
+4.  **Run the Backend Server:**
+    ```bash
+    python app.py # Replace app.py if your Flask file has a different name
+    ```
+    The backend server will run on `http://localhost:5000`.
+
+### 2. Frontend Setup (Next.js)
+
+1.  **Navigate to the Frontend Directory:**
+    ```bash
+    cd your_project_folder/frontend # Replace with the actual path to your frontend folder
+    ```
+2.  **Install Node.js Dependencies:**
+    ```bash
+    npm install # or yarn install
+    ```
+3.  **Run the Frontend Application:**
+    ```bash
+    npm run dev # or yarn dev
+    ```
+    The frontend application will run on `http://localhost:3000` (or your default Next.js port).
 
 ---
 
-## Cara Menjalankan Proyek
+## How to Use the Application
 
-Ikuti langkah-langkah di bawah ini untuk menginstal dan menjalankan aplikasi secara lokal.
-
-### 1. Setup Backend (Flask)
-
-1.  **Navigasi ke Direktori Backend:**
-    ```bash
-    cd nama_folder_proyek_anda/backend # Ganti dengan path folder backend Anda
-    ```
-2.  **Instal Dependensi Python:**
-    ```bash
-    pip install Flask requests flask-cors
-    ```
-3.  **Jalankan Server Backend:**
-    ```bash
-    python app.py # Ganti app.py jika nama file Flask Anda berbeda
-    ```
-    Server backend akan berjalan di `http://localhost:5000`.
-
-### 2. Setup Frontend (Next.js)
-
-1.  **Navigasi ke Direktori Frontend:**
-    ```bash
-    cd nama_folder_proyek_anda/frontend # Ganti dengan path folder frontend Anda
-    ```
-2.  **Instal Dependensi Node.js:**
-    ```bash
-    npm install # atau yarn install
-    ```
-3.  **Jalankan Aplikasi Frontend:**
-    ```bash
-    npm run dev # atau yarn dev
-    ```
-    Aplikasi frontend akan berjalan di `http://localhost:3000` (atau port default Next.js).
+1.  Ensure both your Flask backend and Next.js frontend servers are running.
+2.  Open your browser and access `http://localhost:3000`.
+3.  Select your preferred language (English/Indonesia) from the dropdown.
+4.  Enter your Python function(s) into the text input area.
+5.  Click the **"Generate Tests" / "Buat Test"** button.
+6.  The generated Pytest unit code will appear below. You can copy it directly using the **"Copy Test Code" / "Salin Kode Test"** button.
 
 ---
 
-## Cara Menggunakan Aplikasi
+## Benefits of the Application
 
-1.  Pastikan server Ollama, backend Flask, dan frontend Next.js semuanya berjalan.
-2.  Buka browser Anda dan akses `http://localhost:3000`.
-3.  Pilih bahasa yang Anda inginkan (Indonesia/English).
-4.  Masukkan fungsi Python Anda ke dalam kotak teks yang tersedia.
-5.  Klik tombol "Buat Test" / "Generate Tests".
-6.  Kode unit test Pytest yang dihasilkan akan muncul di bagian bawah. Anda dapat menyalinnya dengan tombol "Salin Kode Test".
+The **"AI-Driven Test Case Generator"** application is highly beneficial for developers and students because it:
 
----
-
-## Manfaat Aplikasi
-
-Aplikasi ini sangat bermanfaat bagi pengembang karena:
-* **Meningkatkan Efisiensi:** Mengurangi waktu dan usaha yang dibutuhkan untuk menulis test awal secara manual.
-* **Memastikan Kualitas Kode:** Membantu memastikan fungsionalitas kode bekerja sesuai harapan dengan menyediakan dasar test otomatis.
-* **Mempercepat Proses Pengembangan:** Memungkinkan siklus pengembangan yang lebih cepat dengan otomatisasi test.
+* **Boosts Efficiency:** Significantly reduces the time and effort required to write manual unit tests, accelerating the development workflow.
+* **Ensures Code Quality:** Helps verify code functionality by providing automated test foundations, allowing earlier bug detection and improving overall software quality.
+* **Accelerates Development Process:** Automates repetitive testing tasks, freeing up time for innovation and new feature development.
+* **Simplifies Learning Testing:** Serves as a practical tool for students or junior developers to understand the structure and best practices of unit testing.
 
 ---
 
-## Dikembangkan Oleh
+## Developed By
 
-[Peno] - [NIM 221220095]
+**Peno** - **NIM 221220095**
 
 ---
