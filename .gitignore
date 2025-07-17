@@ -5,16 +5,6 @@ backend-flask/*.pyc
 backend-flask/.pytest_cache/
 backend-flask/.env
 
-# Node.js / Next.js
-frontend-nextjs/node_modules/
-frontend-nextjs/.next/
-frontend-nextjs/out/
-frontend-nextjs/.env.local
-frontend-nextjs/.env
-frontend-nextjs/npm-debug.log*
-frontend-nextjs/yarn-debug.log*
-frontend-nextjs/yarn-error.log*
-
 # Logs
 *.log
 npm-debug.log*
